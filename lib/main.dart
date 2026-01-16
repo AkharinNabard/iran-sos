@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'dart:async';
 
 void main() {
@@ -66,14 +67,65 @@ class _SOSPageState extends State<SOSPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AnimatedContainer(
-        duration: const Duration(milliseconds: 100),
-        color: _isBlue ? Colors.blue : Colors.red,
-        child: const Center(
-          child: Text(
-            'SOS',
-            style: TextStyle(fontSize: 48, color: Colors.white),
+      body: Stack(
+        children: [
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 100),
+            color: _isBlue ? Colors.blue : Colors.red,
+            child: const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'SOS FOR',
+                    style: TextStyle(fontSize: 40, color: Colors.white),
+                  ),
+                  Text(
+                    'IRAN',
+                    style: TextStyle(fontSize: 62, color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
           ),
+          Positioned(
+            top: 16,
+            right: 16,
+            child: IconButton(
+              icon: const Icon(Icons.qr_code),
+              tooltip: 'Show QR',
+              onPressed: () {
+                Navigator.of(
+                  context,
+                ).push(MaterialPageRoute(builder: (_) => const QRPage()));
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class QRPage extends StatelessWidget {
+  const QRPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: const Text('QR Code'),
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+      ),
+      body: Center(
+        child: QrImageView(
+          data: 'https://google.com',
+          version: QrVersions.auto,
+          size: 200.0,
+          backgroundColor: Colors.black,
+          foregroundColor: Colors.white,
         ),
       ),
     );
