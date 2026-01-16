@@ -121,7 +121,7 @@ class QRPage extends StatelessWidget {
       ),
       body: Center(
         child: QrImageView(
-          data: 'https://google.com',
+          data: 'https://akharinnabard.github.io/iran-sos/',
           version: QrVersions.auto,
           size: 200.0,
           backgroundColor: Colors.black,
